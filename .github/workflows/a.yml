@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Load GITHUB_TOKEN in Job 2
         run: echo "abcd" > token_job2.txt
-      - run: cat token_job2.txt
+      - run: ls -larth
 
       - name: Compare Tokens
         run: |
