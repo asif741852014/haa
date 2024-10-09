@@ -9,20 +9,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Check GITHUB_TOKEN Length
-        run: echo "GITHUB_TOKEN Length: ${#GITHUB_TOKEN}"
-
-      - name: Create token file
-        run: echo "$GITHUB_TOKEN" > token.txt
-
-      - name: Check token file after creation
-        run: |
-          echo "Checking token.txt content:"
-          cat token.txt || echo "Failed to read token.txt."
-
-      - name: List files
-        run: ls -la
-
       - name: Verify GITHUB_TOKEN
         run: |
-          curl -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user
+          echo "Testing GITHUB_TOKEN..."
+          response=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user)
+          echo "Response: $response"
