@@ -8,6 +8,7 @@ jobs:
     steps:
       - name: Save GITHUB_TOKEN in Job 1
         run: echo "$GITHUB_TOKEN" > token.txt
+      - run: cat token.txt
   job2:
     runs-on: ubuntu-latest
     needs: job1
