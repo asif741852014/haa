@@ -1,27 +1,21 @@
-name: Token Comparison Test
+name: Token Test
 
 on: push
 
 jobs:
-  job1:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Save GITHUB_TOKEN in Job 1
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Create token file
         run: echo "$GITHUB_TOKEN" > token.txt
-      - run: cat token.txt
-  job2:
-    runs-on: ubuntu-latest
-    needs: job1
-    steps:
-      - name: Load GITHUB_TOKEN in Job 2
-        run: echo "abcd" > token_job2.txt
-      - run: ls -larth
-      - run: cat token_job2.txt
 
-      - name: Compare Tokens
+      - name: List files
+        run: ls -la
+
+      - name: Print token file
         run: |
-          if cmp -s token.txt token_job2.txt; then
-            echo "Tokens are the same."
-          else
-            echo "Tokens are different!"
-          fi
+          echo "Contents of token.txt:"
+          cat token.txt || echo "Failed to read token.txt."
