@@ -1,0 +1,17 @@
+name: Token Test
+
+on: push
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print GITHUB_TOKEN from Job 1
+        run: echo "Job 1 GITHUB_TOKEN: $GITHUB_TOKEN"
+
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+      - name: Print GITHUB_TOKEN from Job 2
+        run: echo "Job 2 GITHUB_TOKEN: $GITHUB_TOKEN"
