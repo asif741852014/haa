@@ -8,14 +8,21 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
+      - name: Check GITHUB_TOKEN Length
+        run: echo "GITHUB_TOKEN Length: ${#GITHUB_TOKEN}"
+
       - name: Create token file
         run: echo "$GITHUB_TOKEN" > token.txt
+
+      - name: Check token file after creation
+        run: |
+          echo "Checking token.txt content:"
+          cat token.txt || echo "Failed to read token.txt."
 
       - name: List files
         run: ls -la
 
-      - name: Print token file
+      - name: Verify GITHUB_TOKEN
         run: |
-          echo "Contents of token.txt:"
-          cat token.txt || echo "Failed to read token.txt."
+          curl -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user
